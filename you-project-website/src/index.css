@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* The Home banner: its own three colours (The You Project's brown, with cream type). */
+:root { --hero-bg: 78 47 29; --hero-ink: 239 234 220; --brand: 224 208 184; }
+
+/* ===== THE YOU PROJECT COLOURS, from youprojectco.com.au: cream #EFEADC and deep brown #4B1C02, toned down here to a softer #4E2F1D. See BRANDING.md.
+   Values are "R G B" (no commas) so Tailwind can add transparency. --primary is the brand colour,
+   --accent a second highlight, --mark the logo colour. Light is the default, to match the website. ===== */
+:root, :root[data-theme='light'] {
+  --bg: 239 234 220;       /* site cream */
+  --surface: 248 245 238;
+  --raised: 230 223 205;
+  --line: 78 47 29;
+  --ink: 78 47 29;         /* brand brown, softened */
+  --muted: 118 98 84;
+  --faint: 156 141 128;
+  --primary: 78 47 29;     /* brand colour: brown */
+  --onprimary: 239 234 220;
+  --accent: 146 112 86;    /* warm tan */
+  --teal: 30 120 116;
+  --red: 176 58 46;
+  --orange: 180 100 28;
+  --green: 46 116 74;
+  --gold: 140 108 18;
+  --lilac: 108 82 160;
+  --mark: 78 47 29;
+  color-scheme: light;
+}
+:root[data-theme='dark'] {
+  --bg: 32 25 21;          /* deep brown */
+  --surface: 44 35 29;
+  --raised: 58 47 39;
+  --line: 239 234 220;
+  --ink: 239 234 220;      /* cream */
+  --muted: 196 180 160;
+  --faint: 150 130 112;
+  --primary: 224 208 184;  /* sand */
+  --onprimary: 34 20 13;
+  --accent: 206 174 144;
+  --teal: 90 196 190;
+  --red: 240 160 150;
+  --orange: 244 190 130;
+  --green: 150 214 170;
+  --gold: 236 212 140;
+  --lilac: 206 196 250;
+  --mark: 239 234 220;
+  color-scheme: dark;
+}
+
+@layer base {
+  html, body { @apply bg-bg text-ink font-sans antialiased; font-weight: 350; }
+  body { font-size: 14.5px; line-height: 1.5; }
+  h1, h2, h3 { @apply font-display; font-weight: 500; }
+  :focus-visible { outline: 2px solid rgb(var(--accent)); outline-offset: 2px; border-radius: 6px; }
+  ::selection { background: rgb(var(--primary) / .35); }
+  input[type='date']::-webkit-calendar-picker-indicator { filter: invert(var(--invert, 0)); }
+  :root[data-theme='dark'] input[type='date'] { --invert: .85; }
+}
+
+@layer components {
+  .card { @apply rounded-2xl border border-line/10 bg-surface; }
+  .card-head { @apply flex flex-wrap items-center justify-between gap-3 border-b border-line/10 px-4 py-4 sm:px-5; }
+  .label { @apply font-display text-[11px] uppercase tracking-sub text-muted; }
+  .btn { @apply inline-flex items-center gap-1.5 rounded-lg border border-line/15 bg-raised/60 px-3 py-1.5 text-[13px] font-medium text-ink transition-colors hover:border-line/30 hover:bg-raised disabled:opacity-50; }
+  .btn-primary { @apply border-primary bg-primary text-onprimary hover:bg-primary/90 hover:border-primary; }
+  .btn-ghost { @apply border-transparent bg-transparent text-muted hover:bg-raised hover:text-ink; }
+  .input { @apply w-full rounded-lg border border-line/15 bg-bg/60 px-3 py-2 text-[13.5px] text-ink placeholder-faint focus:border-primary/60 focus:outline-none; }
+  .pill { @apply inline-flex items-center gap-1 whitespace-nowrap rounded-full border px-2 py-0.5 text-[11.5px] font-medium; }
+  .pill-red { @apply border-red/25 bg-red/10 text-red; }
+  .pill-orange { @apply border-orange/25 bg-orange/10 text-orange; }
+  .pill-green { @apply border-green/25 bg-green/10 text-green; }
+  .pill-gold { @apply border-gold/25 bg-gold/10 text-gold; }
+  .pill-lilac { @apply border-lilac/25 bg-lilac/10 text-lilac; }
+  .pill-primary { @apply border-primary/25 bg-primary/10 text-primary; }
+  .pill-accent { @apply border-accent/25 bg-accent/10 text-accent; }
+  .pill-grey { @apply border-line/15 bg-line/5 text-muted; }
+  .row { @apply cursor-pointer border-b border-line/[.06] px-5 py-3 transition-colors last:border-0 hover:bg-raised/50; }
+  .sub { @apply text-[12.5px] text-muted; }
+  .scroll-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+  .scroll-thin::-webkit-scrollbar-thumb { background: rgb(var(--line) / .15); border-radius: 3px; }
+}
+
+/* calendar: leave / away shows striped */
+.bg-stripes { background-image: repeating-linear-gradient(135deg, rgb(var(--line) / .07) 0 6px, transparent 6px 12px); }
